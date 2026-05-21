@@ -52,6 +52,16 @@ class FrameTest {
             assertThat(frame.isFinished()).isFalse()
         }
 
+        @Test
+        fun `frame is finished, when two regular rolls have been committed`() {
+            val frame = Frame()
+
+            frame.roll(5)
+            frame.roll(5)
+
+            assertThat(frame.isFinished()).isTrue()
+        }
+
     }
 
 
