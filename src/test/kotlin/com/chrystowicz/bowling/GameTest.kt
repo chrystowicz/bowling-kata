@@ -16,6 +16,31 @@ class GameTest {
     }
 
     @Test
+    fun `current score is a combination of all frame scores and their bonuses`() {
+
+        val game = Game()
+
+        game.roll(10)
+        game.roll(5)
+        game.roll(4)
+
+        assertThat(game.currentScore()).isEqualTo(28)
+
+    }
+
+    @Test
+    fun `12 consecutive strikes results in a score of exactly 300`() {
+
+        val game = Game()
+
+        repeat(12) {
+            game.roll(10)
+        }
+
+        assertThat(game.currentScore()).isEqualTo(300)
+    }
+
+    @Test
     fun `game starts on frame 1`() {
         val game = Game()
 

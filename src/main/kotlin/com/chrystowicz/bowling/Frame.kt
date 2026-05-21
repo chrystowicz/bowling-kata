@@ -2,9 +2,9 @@ package com.chrystowicz.bowling
 
 class Frame(val frameNumber: Int,
             val previousFrame: Frame? = null) {
-    private var firstRoll: Int? = null
-    private var secondRoll: Int? = null
-    private var thirdRoll: Int? = null
+     var firstRoll: Int? = null
+     var secondRoll: Int? = null
+     var thirdRoll: Int? = null
 
     fun roll(pins: Int) {
         require(pins <= 10) { "Knocked down pins can't be higher than 10" }
@@ -21,7 +21,7 @@ class Frame(val frameNumber: Int,
         }
     }
 
-    fun score(): Int = (firstRoll ?: 0) + (secondRoll ?: 0)
+    fun score(): Int = (firstRoll ?: 0) + (secondRoll ?: 0) + (thirdRoll ?: 0)
 
     fun isFinished(): Boolean = when {
         frameNumber == 10 && bonusRollAllowed() -> thirdRoll != null
