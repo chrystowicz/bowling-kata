@@ -106,40 +106,33 @@ class FrameTest {
     inner class Bonus {
 
         @Test
-        fun `by default, bonus for frame is zero`() {
+        fun `bonus is by default zero`() {
             val frame = Frame()
 
             assertThat(frame.bonusScore(null)).isZero()
         }
 
         @Test
-        fun `when previous frame had a spare, bonus is equal first roll in current frame`() {
-            val previousFrame = Frame()
-            previousFrame.roll(5)
-            previousFrame.roll(5)
+        fun `when current frame has a spare, bonus is next roll`() {
+            val currentFrame = Frame()
+            currentFrame.roll(5)
+            currentFrame.roll(5)
 
-            val frame = Frame()
+            val nextRoll = 5
 
-            frame.roll(5)
-
-            assertThat(frame.bonusScore(previousFrame)).isEqualTo(5)
+            assertThat(currentFrame.bonusScore(nextRoll)).isEqualTo(5)
         }
 
-    }
+        @Test
+        fun `total score includes bonus and score`() {
+            val currentFrame = Frame()
+            currentFrame.roll(5)
+            currentFrame.roll(5)
 
-    @Test
-    fun `total score is a combination of score and bonus score`() {
+            val nextRoll = 5
 
-        val previousFrame = Frame()
-        previousFrame.roll(5)
-        previousFrame.roll(5)
-
-        val frame = Frame()
-
-        frame.roll(5)
-        frame.roll(5)
-
-        assertThat(frame.totalScore(previousFrame)).isEqualTo(15)
+            assertThat(currentFrame.totalScore(nextRoll)).isEqualTo(15)
+        }
 
     }
 }
