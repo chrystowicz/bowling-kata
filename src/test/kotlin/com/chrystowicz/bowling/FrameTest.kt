@@ -76,4 +76,22 @@ class FrameTest {
 
     }
 
+    @Test
+    fun `spare can't have 10 pins knocked down in first roll`() {
+        val frame = Frame()
+
+        frame.roll(10)
+
+        assertThat(frame.hasSpare()).isFalse()
+    }
+
+    @Test
+    fun `strike is when 10 pins are knocked down in first roll`() {
+        val frame = Frame()
+
+        frame.roll(10)
+
+        assertThat(frame.hasStrike()).isTrue()
+    }
+
 }

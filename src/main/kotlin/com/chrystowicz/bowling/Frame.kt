@@ -19,7 +19,11 @@ class Frame {
     fun isFinished(): Boolean = firstRollKnockedPins != null && secondRollKnockedPins != null
 
     fun hasSpare(): Boolean {
-        return score() == 10
+        return score() == 10 && !hasStrike()
+    }
+
+    fun hasStrike(): Boolean{
+        return firstRollKnockedPins == 10
     }
 
 }
