@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class GameTest {
 
     @Test
-    fun `a roll should be able to knocked down pins and that's the current score`() {
+    fun `rolling pins adds to the current score`() {
         val game = Game()
 
         game.roll(5)
@@ -15,7 +15,7 @@ class GameTest {
     }
 
     @Test
-    fun `rolls should be per frame, initially should be frame 1`() {
+    fun `game starts on frame 1`() {
         val game = Game()
 
         assertThat(game.currentFrame()).isEqualTo(1)
@@ -25,7 +25,7 @@ class GameTest {
     }
 
     @Test
-    fun `new frame should be created when a frame is finished`() {
+    fun `completing two rolls advances to the next frame`() {
         val game = Game()
 
         game.roll(5)

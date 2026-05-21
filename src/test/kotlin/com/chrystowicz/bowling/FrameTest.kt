@@ -1,7 +1,7 @@
 package com.chrystowicz.bowling
 
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ class FrameTest {
         fun `knocked down pins can't be higher than 10`() {
             val frame = Frame()
 
-            Assertions.assertThatThrownBy { frame.roll(11) }.isInstanceOf(IllegalArgumentException::class.java)
+            assertThatThrownBy { frame.roll(11) }.isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Knocked down pins can't be higher than 10")
         }
 
@@ -24,7 +24,7 @@ class FrameTest {
         fun `knocked down pins can't be lower than 0`() {
             val frame = Frame()
 
-            Assertions.assertThatThrownBy { frame.roll(-1) }.isInstanceOf(IllegalArgumentException::class.java)
+            assertThatThrownBy { frame.roll(-1) }.isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Knocked down pins can't be lower than 0")
 
         }
