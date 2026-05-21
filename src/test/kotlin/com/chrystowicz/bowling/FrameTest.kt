@@ -26,13 +26,22 @@ class FrameTest {
 
             assertThatThrownBy { frame.roll(-1) }.isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Knocked down pins can't be lower than 0")
+        }
 
+        @Test
+        fun `sum of two rolls can't be bigger than 10`() {
+            val frame = Frame()
+
+            frame.roll(5)
+
+            assertThatThrownBy { frame.roll(6) }.isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("Total number of rolls in a frame can't be higher than 10")
         }
 
     }
 
     @Test
-    fun `multiple rolls can be recorded in sequence, up to two per frame`() {
+    fun `score is the sum of both rolls`() {
         val frame = Frame()
 
         frame.roll(5)
@@ -53,7 +62,7 @@ class FrameTest {
         }
 
         @Test
-        fun `frame is finished, when two regular rolls have been committed`() {
+        fun `frame is finished after two rolls`() {
             val frame = Frame()
 
             frame.roll(5)
@@ -66,18 +75,16 @@ class FrameTest {
 
     @Test
     fun `spare is when two rolls in a single frame sum to 10`() {
-
         val frame = Frame()
 
         frame.roll(5)
         frame.roll(5)
 
         assertThat(frame.hasSpare()).isTrue()
-
     }
 
     @Test
-    fun `spare can't have 10 pins knocked down in first roll`() {
+    fun `strike is not a spare`() {
         val frame = Frame()
 
         frame.roll(10)
@@ -92,16 +99,6 @@ class FrameTest {
         frame.roll(10)
 
         assertThat(frame.hasStrike()).isTrue()
-    }
-
-    @Test
-    fun `sum of two rolls can't be bigger than 10`() {
-        val frame = Frame()
-
-        frame.roll(5)
-
-        assertThatThrownBy { frame.roll(6) }.isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessage("Total number of rolls in a frame can't be higher than 10")
     }
 
 }

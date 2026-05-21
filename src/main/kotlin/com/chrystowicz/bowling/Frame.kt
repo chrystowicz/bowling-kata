@@ -7,14 +7,11 @@ class Frame {
     fun roll(pins: Int) {
         require(pins <= 10) { "Knocked down pins can't be higher than 10" }
         require(pins >= 0) { "Knocked down pins can't be lower than 0" }
-        if (firstRoll == null) {
+        val first = firstRoll
+        if (first == null) {
             firstRoll = pins
         } else {
-            firstRoll?.let {
-                require((it + pins) <= 10) {
-                    "Total number of rolls in a frame can't be higher than 10"
-                }
-            }
+            require(first + pins <= 10) { "Total number of rolls in a frame can't be higher than 10" }
             secondRoll = pins
         }
     }
