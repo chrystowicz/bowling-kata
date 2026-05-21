@@ -126,4 +126,20 @@ class FrameTest {
         }
 
     }
+
+    @Test
+    fun `total score is a combination of score and bonus score`() {
+
+        val previousFrame = Frame()
+        previousFrame.roll(5)
+        previousFrame.roll(5)
+
+        val frame = Frame()
+
+        frame.roll(5)
+        frame.roll(5)
+
+        assertThat(frame.totalScore(previousFrame)).isEqualTo(15)
+
+    }
 }

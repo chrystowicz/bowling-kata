@@ -34,4 +34,8 @@ class Frame {
 
         return 0
     }
+
+    fun totalScore(previousFrame: Frame?) : Int {
+        return score() + bonusScore(previousFrame)
+    }
 }
