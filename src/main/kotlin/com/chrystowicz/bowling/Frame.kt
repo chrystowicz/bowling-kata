@@ -24,5 +24,14 @@ class Frame {
 
     fun hasStrike(): Boolean = firstRoll == 10
 
-    fun bonusScore(): Int = 0
+    fun bonusScore(previousFrame: Frame?): Int {
+
+        previousFrame?.let {
+            if(it.hasSpare()) {
+                return (firstRoll ?: 0)
+            }
+        }
+
+        return 0
+    }
 }
