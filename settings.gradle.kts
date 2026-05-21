@@ -1,0 +1,1 @@
+rootProject.name = "bowling-test-21052026"
