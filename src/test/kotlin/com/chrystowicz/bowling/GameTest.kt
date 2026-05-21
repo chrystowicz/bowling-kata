@@ -19,7 +19,7 @@ class GameTest {
     fun `game starts on frame 1`() {
         val game = Game()
 
-        assertThat(game.currentFrame()).isEqualTo(1)
+        assertThat(game.currentFrameNumber()).isEqualTo(1)
 
         game.roll(5)
         game.roll(5)
@@ -32,7 +32,7 @@ class GameTest {
         game.roll(5)
         game.roll(5)
 
-        assertThat(game.currentFrame()).isEqualTo(2)
+        assertThat(game.currentFrameNumber()).isEqualTo(2)
     }
 
     @Test
@@ -41,7 +41,7 @@ class GameTest {
 
         assertThat(game.isFinished()).isFalse()
 
-        for(i in 1..8) {
+        repeat(8) {
             game.roll(5)
             game.roll(5)
         }
@@ -53,12 +53,12 @@ class GameTest {
     fun `game is finished after frame number 10 is finished`() {
         val game = Game()
 
-        for(i in 1..10) {
+        repeat(10) {
             game.roll(5)
             game.roll(5)
         }
 
-        assertThat(game.currentFrame()).isEqualTo(10)
+        assertThat(game.currentFrameNumber()).isEqualTo(10)
         assertThat(game.isFinished()).isTrue()
     }
 
@@ -67,7 +67,7 @@ class GameTest {
 
         val game = Game()
 
-        for(i in 1..10) {
+        repeat(10) {
             game.roll(5)
             game.roll(5)
         }

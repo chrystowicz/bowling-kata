@@ -4,21 +4,20 @@ class Game {
     private val frames = mutableListOf(Frame())
 
     fun roll(knockedDownPins: Int) {
+        require(!isFinished()) { "The game is already finished" }
 
-        if(isFinished()) {
-            throw IllegalArgumentException("The game is already finished")
-        }
+        val frame = currentFrame()
+        frame.roll(knockedDownPins)
 
-        val currentFrame = frames.last()
-        currentFrame.roll(knockedDownPins)
-
-        if(currentFrame.isFinished() && currentFrame() < 10) {
+        if (frame.isFinished() && currentFrameNumber() < 10) {
             frames.add(Frame())
         }
     }
 
     fun currentScore(): Int = frames.sumOf(Frame::score)
-    fun currentFrame(): Int = frames.size
+    fun currentFrameNumber(): Int = frames.size
 
-    fun isFinished() : Boolean = currentFrame() == 10 && frames.last().isFinished()
+    fun isFinished(): Boolean = currentFrameNumber() == 10 && currentFrame().isFinished()
+
+    private fun currentFrame(): Frame = frames.last()
 }
