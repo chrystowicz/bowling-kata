@@ -29,6 +29,15 @@ class GameTest {
                 .hasMessage("Knocked down pins can't be higher than 10")
         }
 
+        @Test
+        fun `knocked down pins can't be lower than 0`() {
+            val game = Game()
+
+            assertThatThrownBy { game.roll(-1) }.isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("Knocked down pins can't be lower than 0")
+
+        }
+
     }
 
 
