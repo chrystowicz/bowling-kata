@@ -75,7 +75,7 @@ class GameTest {
     }
 
     @Test
-    fun `3 rolls should be allowed in the last frame when strike was before`() {
+    fun `last frame allows three rolls after a strike`() {
         val game = Game()
 
         repeat(9) {

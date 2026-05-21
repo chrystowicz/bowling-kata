@@ -6,7 +6,6 @@ class Frame(val frameNumber: Int,
     private var secondRoll: Int? = null
     private var thirdRoll: Int? = null
 
-
     fun roll(pins: Int) {
         require(pins <= 10) { "Knocked down pins can't be higher than 10" }
         require(pins >= 0) { "Knocked down pins can't be lower than 0" }
@@ -18,20 +17,15 @@ class Frame(val frameNumber: Int,
                 secondRoll = pins
             }
             secondRoll == null -> secondRoll = pins
-            previousFrame?.hasStrike() == true || previousFrame?.hasSpare() == true -> thirdRoll = pins
+            bonusRollAllowed() -> thirdRoll = pins
         }
     }
 
     fun score(): Int = (firstRoll ?: 0) + (secondRoll ?: 0)
 
-    fun isFinished(): Boolean = when(frameNumber) {
-        10 -> {
-            if(previousFrame?.hasStrike() == true || previousFrame?.hasSpare() == true) {
-                thirdRoll != null
-            } else {
-                secondRoll != null
-            }
-        }
+    fun isFinished(): Boolean = when {
+        frameNumber == 10 && bonusRollAllowed() -> thirdRoll != null
+        frameNumber == 10 -> secondRoll != null
         else -> hasStrike() || secondRoll != null
     }
 
@@ -47,4 +41,7 @@ class Frame(val frameNumber: Int,
 
     fun totalScore(nextFirstRoll: Int? = null, nextSecondRoll: Int? = null): Int =
         score() + bonusScore(nextFirstRoll, nextSecondRoll)
+
+    private fun bonusRollAllowed(): Boolean =
+        previousFrame?.hasStrike() == true || previousFrame?.hasSpare() == true
 }

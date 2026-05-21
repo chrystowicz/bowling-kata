@@ -14,14 +14,6 @@ class Game {
         }
     }
 
-    private fun previousFrame() : Frame? {
-        if(frames.size > 1) {
-            return frames[frames.size - 1]
-        }
-
-        return null
-    }
-
     fun currentScore(): Int = frames.sumOf(Frame::score)
     fun currentFrameNumber(): Int = currentFrame().frameNumber
 
