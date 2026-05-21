@@ -101,4 +101,16 @@ class FrameTest {
         assertThat(frame.hasStrike()).isTrue()
     }
 
+    @Nested
+    @DisplayName("bonus score")
+    inner class Bonus {
+
+        @Test
+        fun `by default, bonus for frame is zero`() {
+            val frame = Frame()
+
+            assertThat(frame.bonusScore()).isZero()
+        }
+
+    }
 }

@@ -23,4 +23,6 @@ class Frame {
     fun hasSpare(): Boolean = score() == 10 && !hasStrike()
 
     fun hasStrike(): Boolean = firstRoll == 10
+
+    fun bonusScore(): Int = 0
 }
