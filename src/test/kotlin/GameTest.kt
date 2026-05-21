@@ -22,7 +22,6 @@ class GameTest {
 
         @Test
         fun `knocked down pins can't be higher than 10`() {
-
             val game = Game()
 
             assertThatThrownBy { game.roll(11) }.isInstanceOf(IllegalArgumentException::class.java)
@@ -38,6 +37,16 @@ class GameTest {
 
         }
 
+    }
+
+    @Test
+    fun `multiple rolls can be recorded in sequence`() {
+        val game = Game()
+
+        game.roll(5)
+        game.roll(5)
+
+        assertThat(game.currentScore()).isEqualTo(10)
     }
 
 
