@@ -17,8 +17,6 @@ class Frame {
 
     fun score(): Int = (firstRollKnockedPins ?: 0) + (secondRollKnockedPins ?: 0)
 
-    fun isFinished(): Boolean {
-        return firstRollKnockedPins != null && secondRollKnockedPins != null
-    }
+    fun isFinished(): Boolean = firstRollKnockedPins != null && secondRollKnockedPins != null
 
 }

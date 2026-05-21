@@ -13,7 +13,5 @@ class Game {
     }
 
     fun currentScore(): Int = rolls.sumOf(Frame::score)
-    fun currentFrame(): Int {
-        return rolls.size
-    }
+    fun currentFrame(): Int = rolls.size
 }
