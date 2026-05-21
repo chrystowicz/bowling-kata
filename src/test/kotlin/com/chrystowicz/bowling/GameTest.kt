@@ -20,9 +20,6 @@ class GameTest {
         val game = Game()
 
         assertThat(game.currentFrameNumber()).isEqualTo(1)
-
-        game.roll(5)
-        game.roll(5)
     }
 
     @Test
@@ -50,7 +47,7 @@ class GameTest {
     }
 
     @Test
-    fun `game is finished after frame number 10 is finished`() {
+    fun `game is finished after completing all 10 frames`() {
         val game = Game()
 
         repeat(10) {
