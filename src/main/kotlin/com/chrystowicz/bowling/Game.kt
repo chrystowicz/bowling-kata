@@ -7,11 +7,20 @@ class Game {
         require(!isFinished()) { "The game is already finished" }
 
         val frame = currentFrame()
-        frame.roll(knockedDownPins)
+        val previousFrame = previousFrame()
+        frame.roll(knockedDownPins, previousFrame)
 
         if (frame.isFinished() && currentFrameNumber() < 10) {
             frames.add(Frame(currentFrameNumber() + 1))
         }
+    }
+
+    private fun previousFrame() : Frame? {
+        if(frames.size > 1) {
+            return frames[frames.size - 1]
+        }
+
+        return null
     }
 
     fun currentScore(): Int = frames.sumOf(Frame::score)
