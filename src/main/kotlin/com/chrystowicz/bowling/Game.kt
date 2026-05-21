@@ -1,7 +1,7 @@
 package com.chrystowicz.bowling
 
 class Game {
-    private val frames = mutableListOf(Frame())
+    private val frames = mutableListOf(Frame(1))
 
     fun roll(knockedDownPins: Int) {
         require(!isFinished()) { "The game is already finished" }
@@ -10,7 +10,7 @@ class Game {
         frame.roll(knockedDownPins)
 
         if (frame.isFinished() && currentFrameNumber() < 10) {
-            frames.add(Frame())
+            frames.add(Frame(currentFrameNumber() + 1))
         }
     }
 
