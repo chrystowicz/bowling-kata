@@ -1,29 +1,24 @@
 package com.chrystowicz.bowling
 
 class Frame {
-    private var firstRollKnockedPins: Int? = null
-    private var secondRollKnockedPins: Int? = null
+    private var firstRoll: Int? = null
+    private var secondRoll: Int? = null
 
-    fun roll(knockedDownPins: Int) {
-        require(knockedDownPins <= 10) { "Knocked down pins can't be higher than 10" }
-        require(knockedDownPins >= 0) { "Knocked down pins can't be lower than 0" }
-        if (firstRollKnockedPins == null) {
-            firstRollKnockedPins = knockedDownPins
+    fun roll(pins: Int) {
+        require(pins <= 10) { "Knocked down pins can't be higher than 10" }
+        require(pins >= 0) { "Knocked down pins can't be lower than 0" }
+        if (firstRoll == null) {
+            firstRoll = pins
         } else {
-            secondRollKnockedPins = knockedDownPins
+            secondRoll = pins
         }
     }
 
-    fun score(): Int = (firstRollKnockedPins ?: 0) + (secondRollKnockedPins ?: 0)
+    fun score(): Int = (firstRoll ?: 0) + (secondRoll ?: 0)
 
-    fun isFinished(): Boolean = firstRollKnockedPins != null && secondRollKnockedPins != null
+    fun isFinished(): Boolean = firstRoll != null && secondRoll != null
 
-    fun hasSpare(): Boolean {
-        return score() == 10 && !hasStrike()
-    }
+    fun hasSpare(): Boolean = score() == 10 && !hasStrike()
 
-    fun hasStrike(): Boolean{
-        return firstRollKnockedPins == 10
-    }
-
+    fun hasStrike(): Boolean = firstRoll == 10
 }
