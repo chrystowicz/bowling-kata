@@ -1,6 +1,7 @@
 package com.chrystowicz.bowling
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class GameTest {
@@ -32,6 +33,48 @@ class GameTest {
         game.roll(5)
 
         assertThat(game.currentFrame()).isEqualTo(2)
+    }
+
+    @Test
+    fun `game is not finished before frame number 10`() {
+        val game = Game()
+
+        assertThat(game.isFinished()).isFalse()
+
+        for(i in 1..8) {
+            game.roll(5)
+            game.roll(5)
+        }
+
+        assertThat(game.isFinished()).isFalse()
+    }
+
+    @Test
+    fun `game is finished after frame number 10 is finished`() {
+        val game = Game()
+
+        for(i in 1..10) {
+            game.roll(5)
+            game.roll(5)
+        }
+
+        assertThat(game.currentFrame()).isEqualTo(10)
+        assertThat(game.isFinished()).isTrue()
+    }
+
+    @Test
+    fun `rolls can't be performed when game is finished`() {
+
+        val game = Game()
+
+        for(i in 1..10) {
+            game.roll(5)
+            game.roll(5)
+        }
+
+        assertThatThrownBy { game.roll(5) }.isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("The game is already finished")
+
     }
 
 
