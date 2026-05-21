@@ -64,5 +64,16 @@ class FrameTest {
 
     }
 
+    @Test
+    fun `spare is when two rolls in a single frame sum to 10`() {
+
+        val frame = Frame()
+
+        frame.roll(5)
+        frame.roll(5)
+
+        assertThat(frame.hasSpare()).isTrue()
+
+    }
 
 }

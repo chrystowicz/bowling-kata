@@ -9,8 +9,7 @@ class Frame {
         require(knockedDownPins >= 0) { "Knocked down pins can't be lower than 0" }
         if (firstRollKnockedPins == null) {
             firstRollKnockedPins = knockedDownPins
-        }
-        else {
+        } else {
             secondRollKnockedPins = knockedDownPins
         }
     }
@@ -18,5 +17,9 @@ class Frame {
     fun score(): Int = (firstRollKnockedPins ?: 0) + (secondRollKnockedPins ?: 0)
 
     fun isFinished(): Boolean = firstRollKnockedPins != null && secondRollKnockedPins != null
+
+    fun hasSpare(): Boolean {
+        return score() == 10
+    }
 
 }
