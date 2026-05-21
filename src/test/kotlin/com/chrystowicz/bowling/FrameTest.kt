@@ -94,4 +94,14 @@ class FrameTest {
         assertThat(frame.hasStrike()).isTrue()
     }
 
+    @Test
+    fun `sum of two rolls can't be bigger than 10`() {
+        val frame = Frame()
+
+        frame.roll(5)
+
+        assertThatThrownBy { frame.roll(6) }.isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Total number of rolls in a frame can't be higher than 10")
+    }
+
 }

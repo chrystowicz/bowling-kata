@@ -10,6 +10,11 @@ class Frame {
         if (firstRoll == null) {
             firstRoll = pins
         } else {
+            firstRoll?.let {
+                require((it + pins) <= 10) {
+                    "Total number of rolls in a frame can't be higher than 10"
+                }
+            }
             secondRoll = pins
         }
     }
