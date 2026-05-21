@@ -16,7 +16,7 @@ class GameTest {
     }
 
     @Test
-    fun `current score is a combination of all frame scores and their bonuses`() {
+    fun `a strike adds the next two rolls as bonus to the frame score`() {
 
         val game = Game()
 

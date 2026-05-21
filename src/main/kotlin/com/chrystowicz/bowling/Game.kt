@@ -3,49 +3,28 @@ package com.chrystowicz.bowling
 class Game {
     private val frames = mutableListOf(Frame(1))
 
-    fun roll(knockedDownPins: Int) {
+    fun roll(pins: Int) {
         require(!isFinished()) { "The game is already finished" }
 
-        val currentFrame = currentFrame()
-        currentFrame.roll(knockedDownPins)
+        val frame = currentFrame()
+        frame.roll(pins)
 
-        if (currentFrame.isFinished() && currentFrameNumber() < 10) {
-            frames.add(Frame(currentFrameNumber() + 1, currentFrame))
+        if (frame.isFinished() && currentFrameNumber() < 10) {
+            frames.add(Frame(currentFrameNumber() + 1, frame))
         }
     }
 
-    fun currentScore(): Int = frames.sumOf {
-        val frame = it
-
-        val nextFrame = nextFrame(frame.frameNumber)
-
-        var score = 0
-        if(nextFrame != null) {
-            if(nextFrame.hasStrike()) {
-                if(nextFrame.frameNumber == 10) {
-                    score = frame.totalScore(10, nextFrame.secondRoll)
-                } else {
-                    val nextTwoFrame = nextFrame(frame.frameNumber+1)
-                    score = frame.totalScore(10, nextTwoFrame?.firstRoll ?: 0)
-                }
-            } else {
-                score = frame.totalScore(nextFrame.firstRoll, nextFrame.secondRoll)
-            }
-        } else {
-             score = frame.totalScore(0, 0)
-        }
-
-        score
-    }
-
-    private fun nextFrame(currentFrameNumber: Int) : Frame? {
-        if (currentFrameNumber < frames.size) {
-            return frames[currentFrameNumber]
-        }
-        else {
-            return null
+    fun currentScore(): Int = frames.sumOf { frame ->
+        val next = nextFrame(frame.frameNumber)
+        when {
+            next == null -> frame.totalScore(0, 0)
+            next.hasStrike() && next.frameNumber == 10 -> frame.totalScore(10, next.secondRoll)
+            next.hasStrike() -> frame.totalScore(10, nextFrame(frame.frameNumber + 1)?.firstRoll ?: 0)
+            else -> frame.totalScore(next.firstRoll, next.secondRoll)
         }
     }
+
+    private fun nextFrame(frameNumber: Int): Frame? = frames.getOrNull(frameNumber)
 
     fun currentFrameNumber(): Int = currentFrame().frameNumber
 
