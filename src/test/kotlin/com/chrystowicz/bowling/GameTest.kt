@@ -27,15 +27,15 @@ class GameTest {
         game.roll(5)
     }
 
-//    @Test
-//    fun `new frame should be created when a frame is finished`() {
-//        val game = Game()
-//
-//        game.roll(5)
-//        game.roll(5)
-//
-//        assertThat(game.currentFrame()).isEqualTo(2)
-//    }
+    @Test
+    fun `new frame should be created when a frame is finished`() {
+        val game = Game()
+
+        game.roll(5)
+        game.roll(5)
+
+        assertThat(game.currentFrame()).isEqualTo(2)
+    }
 
 
 }
