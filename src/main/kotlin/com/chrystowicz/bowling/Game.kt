@@ -1,9 +1,7 @@
 package com.chrystowicz.bowling
 
 class Game {
-    private val rolls = mutableListOf<Frame>().apply {
-        add(Frame())
-    }
+    private val rolls = mutableListOf(Frame())
 
     fun roll(knockedDownPins: Int) {
         val currentFrame = rolls.last()
@@ -11,9 +9,7 @@ class Game {
         currentFrame.roll(knockedDownPins)
     }
 
-    fun currentScore(): Int = rolls.sumOf {
-        it.score()
-    }
+    fun currentScore(): Int = rolls.sumOf(Frame::score)
     fun currentFrame(): Int {
         return rolls.size
     }

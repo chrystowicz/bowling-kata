@@ -1,9 +1,8 @@
 package com.chrystowicz.bowling
 
-data class Frame(
-    private var firstRollKnockedPins: Int? = null,
-    private var secondRollKnockedPins: Int? = null,
-) {
+class Frame {
+    private var firstRollKnockedPins: Int? = null
+    private var secondRollKnockedPins: Int? = null
 
     fun roll(knockedDownPins: Int) {
         require(knockedDownPins <= 10) { "Knocked down pins can't be higher than 10" }
