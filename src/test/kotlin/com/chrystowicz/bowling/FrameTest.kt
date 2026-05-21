@@ -155,7 +155,7 @@ class FrameTest {
         }
 
         @Test
-        fun `total score includes bonus and score`() {
+        fun `total score includes spare bonus from next roll`() {
             val currentFrame = Frame(1)
             currentFrame.roll(5)
             currentFrame.roll(5)
