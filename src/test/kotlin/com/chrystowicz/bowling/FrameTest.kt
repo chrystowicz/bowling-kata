@@ -41,13 +41,18 @@ class FrameTest {
         assertThat(frame.score()).isEqualTo(10)
     }
 
+    @Nested
+    @DisplayName("finishing frame")
+    inner class Finished {
 
+        @Test
+        fun `empty frame is not finished`() {
+            val frame = Frame()
 
-    @Test
-    fun `empty frame is not finished`() {
-        val frame = Frame()
+            assertThat(frame.isFinished()).isFalse()
+        }
 
-        assertThat(frame.isFinished()).isFalse()
     }
+
 
 }
