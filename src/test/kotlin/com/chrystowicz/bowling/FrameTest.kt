@@ -1,6 +1,7 @@
 package com.chrystowicz.bowling
 
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -37,7 +38,16 @@ class FrameTest {
         frame.roll(5)
         frame.roll(5)
 
-        Assertions.assertThat(frame.score()).isEqualTo(10)
+        assertThat(frame.score()).isEqualTo(10)
+    }
+
+
+
+    @Test
+    fun `empty frame is not finished`() {
+        val frame = Frame()
+
+        assertThat(frame.isFinished()).isFalse()
     }
 
 }
