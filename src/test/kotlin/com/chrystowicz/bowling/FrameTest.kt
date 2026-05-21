@@ -134,5 +134,16 @@ class FrameTest {
             assertThat(currentFrame.totalScore(nextRoll)).isEqualTo(15)
         }
 
+        @Test
+        fun `when current frame has strike, bonus is next two rolls`() {
+            val currentFrame = Frame()
+            currentFrame.roll(10)
+
+            val nextFirstRoll = 5
+            val nextSecondRoll = 7
+
+            assertThat(currentFrame.bonusScore(nextFirstRoll, nextSecondRoll)).isEqualTo(12)
+        }
+
     }
 }
