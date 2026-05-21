@@ -24,18 +24,11 @@ class Frame {
 
     fun hasStrike(): Boolean = firstRoll == 10
 
-    fun bonusScore(nextFirstRoll: Int? = null, nextSecondRoll: Int? = null): Int {
-        if (hasSpare()) {
-            return nextFirstRoll ?: 0
-        }
-
-        if(hasStrike()) {
-            return (nextFirstRoll ?: 0) + (nextSecondRoll ?: 0)
-        }
-
-        return 0
+    fun bonusScore(nextFirstRoll: Int? = null, nextSecondRoll: Int? = null): Int = when {
+        hasSpare() -> nextFirstRoll ?: 0
+        hasStrike() -> (nextFirstRoll ?: 0) + (nextSecondRoll ?: 0)
+        else -> 0
     }
-
 
     fun totalScore(nextFirstRoll: Int? = null, nextSecondRoll: Int? = null): Int = score() + bonusScore(nextFirstRoll, nextSecondRoll)
 }
