@@ -1,11 +1,13 @@
 package com.chrystowicz.bowling
 
-class Frame(val frameNumber: Int) {
+class Frame(val frameNumber: Int,
+            val previousFrame: Frame? = null) {
     private var firstRoll: Int? = null
     private var secondRoll: Int? = null
     private var thirdRoll: Int? = null
 
-    fun roll(pins: Int, previousFrame: Frame? = null) {
+
+    fun roll(pins: Int) {
         require(pins <= 10) { "Knocked down pins can't be higher than 10" }
         require(pins >= 0) { "Knocked down pins can't be lower than 0" }
         val first = firstRoll
@@ -22,7 +24,16 @@ class Frame(val frameNumber: Int) {
 
     fun score(): Int = (firstRoll ?: 0) + (secondRoll ?: 0)
 
-    fun isFinished(): Boolean = firstRoll != null && secondRoll != null
+    fun isFinished(): Boolean = when(frameNumber) {
+        10 -> {
+            if(previousFrame?.hasStrike() == true || previousFrame?.hasSpare() == true) {
+                thirdRoll != null
+            } else {
+                secondRoll != null
+            }
+        }
+        else -> hasStrike() || secondRoll != null
+    }
 
     fun hasSpare(): Boolean = score() == 10 && !hasStrike()
 

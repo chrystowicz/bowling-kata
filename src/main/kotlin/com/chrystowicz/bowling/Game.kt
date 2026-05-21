@@ -6,12 +6,11 @@ class Game {
     fun roll(knockedDownPins: Int) {
         require(!isFinished()) { "The game is already finished" }
 
-        val frame = currentFrame()
-        val previousFrame = previousFrame()
-        frame.roll(knockedDownPins, previousFrame)
+        val currentFrame = currentFrame()
+        currentFrame.roll(knockedDownPins)
 
-        if (frame.isFinished() && currentFrameNumber() < 10) {
-            frames.add(Frame(currentFrameNumber() + 1))
+        if (currentFrame.isFinished() && currentFrameNumber() < 10) {
+            frames.add(Frame(currentFrameNumber() + 1, currentFrame))
         }
     }
 
@@ -24,7 +23,7 @@ class Game {
     }
 
     fun currentScore(): Int = frames.sumOf(Frame::score)
-    fun currentFrameNumber(): Int = frames.size
+    fun currentFrameNumber(): Int = currentFrame().frameNumber
 
     fun isFinished(): Boolean = currentFrameNumber() == 10 && currentFrame().isFinished()
 

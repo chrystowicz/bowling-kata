@@ -52,7 +52,7 @@ class GameTest {
 
         repeat(10) {
             game.roll(5)
-            game.roll(5)
+            game.roll(4)
         }
 
         assertThat(game.currentFrameNumber()).isEqualTo(10)
@@ -66,12 +66,28 @@ class GameTest {
 
         repeat(10) {
             game.roll(5)
-            game.roll(5)
+            game.roll(4)
         }
 
         assertThatThrownBy { game.roll(5) }.isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("The game is already finished")
 
+    }
+
+    @Test
+    fun `3 rolls should be allowed in the last frame when strike was before`() {
+        val game = Game()
+
+        repeat(9) {
+            game.roll(10)
+        }
+
+        game.roll(10)
+        game.roll(10)
+        game.roll(10)
+
+
+        assertThat(game.isFinished()).isTrue()
     }
 
 

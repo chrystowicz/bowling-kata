@@ -77,11 +77,11 @@ class FrameTest {
             val previousFrame = Frame(9)
             previousFrame.roll(10)
 
-            val frame = Frame(10)
+            val frame = Frame(10, previousFrame)
 
-            frame.roll(10, previousFrame)
-            frame.roll(10, previousFrame)
-            frame.roll(10, previousFrame)
+            frame.roll(10)
+            frame.roll(10)
+            frame.roll(10)
 
             assertThat(frame.isFinished()).isTrue()
         }
@@ -93,11 +93,11 @@ class FrameTest {
             previousFrame.roll(5)
             previousFrame.roll(5)
 
-            val frame = Frame(10)
+            val frame = Frame(10, previousFrame)
 
-            frame.roll(10, previousFrame)
-            frame.roll(10, previousFrame)
-            frame.roll(10, previousFrame)
+            frame.roll(10)
+            frame.roll(10)
+            frame.roll(10)
 
             assertThat(frame.isFinished()).isTrue()
         }
