@@ -151,9 +151,9 @@ class FrameTest {
             currentFrame.roll(5)
             currentFrame.roll(5)
 
-            val nextRoll = 5
+            val nextFrame = Frame.firstFrame().also { it.roll(5) }
 
-            assertThat(currentFrame.bonusScore(nextRoll)).isEqualTo(5)
+            assertThat(currentFrame.bonusScore(nextFrame)).isEqualTo(5)
         }
 
         @Test
@@ -162,9 +162,9 @@ class FrameTest {
             currentFrame.roll(5)
             currentFrame.roll(5)
 
-            val nextRoll = 5
+            val nextFrame = Frame.firstFrame().also { it.roll(5) }
 
-            assertThat(currentFrame.totalScoreOfFrame(nextRoll)).isEqualTo(15)
+            assertThat(currentFrame.totalScoreOfFrame(nextFrame)).isEqualTo(15)
         }
 
         @Test
@@ -172,10 +172,9 @@ class FrameTest {
             val currentFrame = Frame.firstFrame()
             currentFrame.roll(10)
 
-            val nextFirstRoll = 5
-            val nextSecondRoll = 7
+            val nextFrame = Frame.firstFrame().also { it.roll(5); it.roll(3) }
 
-            assertThat(currentFrame.bonusScore(nextFirstRoll, nextSecondRoll)).isEqualTo(12)
+            assertThat(currentFrame.bonusScore(nextFrame)).isEqualTo(8)
         }
 
     }

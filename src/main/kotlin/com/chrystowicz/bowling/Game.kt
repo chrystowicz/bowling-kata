@@ -15,19 +15,11 @@ class Game {
     }
 
     fun currentScore(): Int = frames.withIndex().sumOf { (index, frame) ->
-        val nextFrame = getFrame(index + 1)
-        when {
-            nextFrame == null -> frame.totalScoreOfFrame(0, 0)
-            nextFrame.hasStrike() && nextFrame.isLastFrame() -> frame.totalScoreOfFrame(10, nextFrame.secondRollScore())
-            nextFrame.hasStrike() -> {
-                val nextSecondFrame = getFrame(index + 2)
-                frame.totalScoreOfFrame(10, nextSecondFrame?.firstRollScore() ?: 0)
-            }
-            else -> frame.totalScoreOfFrame(nextFrame.firstRollScore(), nextFrame.secondRollScore())
-        }
+        frame.totalScoreOfFrame(
+            nextFrame = frames.getOrNull(index + 1),
+            nextNextFrame = frames.getOrNull(index + 2)
+        )
     }
-
-    private fun getFrame(frameNumber: Int): Frame? = frames.getOrNull(frameNumber)
 
     fun isFinished(): Boolean = currentFrame().isLastFrame() && currentFrame().isFinished()
 
