@@ -2,6 +2,9 @@ package com.chrystowicz.bowling
 
 class Frame(val frameNumber: Int,
             val previousFrame: Frame? = null) {
+    init {
+        require(frameNumber in 1..10) { "Frame number should be between 1 and 10" }
+    }
      var firstRoll: Int? = null
      var secondRoll: Int? = null
      var thirdRoll: Int? = null

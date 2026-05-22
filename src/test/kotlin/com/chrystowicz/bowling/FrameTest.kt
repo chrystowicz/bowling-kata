@@ -115,6 +115,15 @@ class FrameTest {
     }
 
     @Test
+    fun `frame number should be between 1 and 10`() {
+        assertThatThrownBy { Frame(-1) }.isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Frame number should be between 1 and 10")
+
+        assertThatThrownBy { Frame(11) }.isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Frame number should be between 1 and 10")
+    }
+
+    @Test
     fun `strike is not a spare`() {
         val frame = Frame(1)
 
