@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "2.3.0"
-    jacoco
+    id("org.jetbrains.kotlinx.kover") version "0.9.1"
 }
 
 group = "com.chrystowicz.bowling"
@@ -17,12 +17,14 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
 }
 
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
+kover {
     reports {
-        xml.required = true
+        verify {
+            rule {
+                minBound(100)
+            }
+        }
     }
 }
