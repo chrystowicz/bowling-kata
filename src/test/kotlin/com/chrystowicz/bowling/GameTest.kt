@@ -219,7 +219,7 @@ class GameTest {
         repeat(9) { game.roll(10) }
         game.roll(5)
 
-        assertThat(game.currentScore()).isEqualTo(239)
+        assertThat(game.currentScore()).isEqualTo(255)
     }
 
     @Test
