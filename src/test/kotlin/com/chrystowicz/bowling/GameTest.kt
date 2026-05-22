@@ -29,6 +29,21 @@ class GameTest {
     }
 
     @Test
+    fun `mid game strikes should be counted but game should not be finished`() {
+
+        val game = Game()
+
+        repeat(5) {
+            game.roll(10)
+        }
+
+        game.roll(4)
+
+        assertThat(game.currentScore()).isEqualTo(132)
+        assertThat(game.isFinished()).isFalse
+    }
+
+    @Test
     fun `12 consecutive strikes results in a score of exactly 300`() {
 
         val game = Game()
