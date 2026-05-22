@@ -223,6 +223,17 @@ class GameTest {
     }
 
     @Test
+    fun `current score in frame 10 before third roll counts only the spare`() {
+        val game = Game()
+
+        repeat(9) { game.roll(0); game.roll(0) }
+        game.roll(5)
+        game.roll(5)
+
+        assertThat(game.currentScore()).isEqualTo(10)
+    }
+
+    @Test
     fun `zero rolls after each frame should end up with 0 score`() {
         val game = Game()
 
