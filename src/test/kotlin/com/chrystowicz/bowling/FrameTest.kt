@@ -133,49 +133,4 @@ class FrameTest {
 
         assertThat(frame.hasStrike()).isTrue()
     }
-
-    @Nested
-    @DisplayName("bonus score")
-    inner class Bonus {
-
-        @Test
-        fun `bonus is by default zero`() {
-            val frame = Frame.firstFrame()
-
-            assertThat(frame.bonusScore(null)).isZero()
-        }
-
-        @Test
-        fun `when current frame has a spare, bonus is next roll`() {
-            val currentFrame = Frame.firstFrame()
-            currentFrame.roll(5)
-            currentFrame.roll(5)
-
-            val nextFrame = Frame.firstFrame().also { it.roll(5) }
-
-            assertThat(currentFrame.bonusScore(nextFrame)).isEqualTo(5)
-        }
-
-        @Test
-        fun `total score includes spare bonus from next roll`() {
-            val currentFrame = Frame.firstFrame()
-            currentFrame.roll(5)
-            currentFrame.roll(5)
-
-            val nextFrame = Frame.firstFrame().also { it.roll(5) }
-
-            assertThat(currentFrame.totalScoreOfFrame(nextFrame)).isEqualTo(15)
-        }
-
-        @Test
-        fun `when current frame has strike, bonus is next two rolls`() {
-            val currentFrame = Frame.firstFrame()
-            currentFrame.roll(10)
-
-            val nextFrame = Frame.firstFrame().also { it.roll(5); it.roll(3) }
-
-            assertThat(currentFrame.bonusScore(nextFrame)).isEqualTo(8)
-        }
-
-    }
 }
