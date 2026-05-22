@@ -104,6 +104,17 @@ class FrameTest {
             assertThat(frame.isFinished()).isTrue()
         }
 
+        @Test
+        fun `rolling on a finished frame throws`() {
+            val frame = createLastFrame()
+
+            frame.roll(3)
+            frame.roll(4)
+
+            assertThatThrownBy { frame.roll(5) }.isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("Frame is already finished")
+        }
+
     }
 
     @Test

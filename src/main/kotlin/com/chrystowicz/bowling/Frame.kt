@@ -13,6 +13,7 @@ class Frame private constructor(
     private var thirdRoll: Int? = null
 
     fun roll(knockedDownPins: Int) {
+        require(!isFinished()) { "Frame is already finished" }
         require(knockedDownPins <= 10) { "Knocked down pins can't be higher than 10" }
         require(knockedDownPins >= 0) { "Knocked down pins can't be lower than 0" }
         val first = firstRoll
@@ -23,7 +24,7 @@ class Frame private constructor(
                 secondRoll = knockedDownPins
             }
             secondRoll == null -> secondRoll = knockedDownPins
-            bonusRollInLastFrameAllowed() -> thirdRoll = knockedDownPins
+            else -> thirdRoll = knockedDownPins
         }
     }
 
