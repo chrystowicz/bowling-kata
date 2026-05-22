@@ -29,6 +29,38 @@ class GameTest {
     }
 
     @Test
+    fun `mid game random rolls should be counted but game not finished`() {
+
+        val game = Game()
+
+        game.roll(5)
+        game.roll(4)
+        game.roll(3)
+        game.roll(2)
+        game.roll(0)
+        game.roll(9)
+
+        assertThat(game.currentScore()).isEqualTo(23)
+        assertThat(game.isFinished()).isFalse
+    }
+
+    @Test
+    fun `mid game spares should be counted but game should not be finished`() {
+
+        val game = Game()
+
+        repeat(5) {
+            game.roll(5)
+            game.roll(5)
+        }
+
+        game.roll(4)
+
+        assertThat(game.currentScore()).isEqualTo(78)
+        assertThat(game.isFinished()).isFalse
+    }
+
+    @Test
     fun `mid game strikes should be counted but game should not be finished`() {
 
         val game = Game()
