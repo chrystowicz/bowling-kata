@@ -130,7 +130,7 @@ class GameTest {
     }
 
     @Test
-    fun `last frame allows two extra rolls after a spare`() {
+    fun `last frame allows extra roll after a spare`() {
         val game = Game()
 
         repeat(9) {
