@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.3.0"
+    jacoco
 }
 
 group = "com.chrystowicz.bowling"
@@ -16,4 +17,12 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required = true
+    }
 }
