@@ -44,7 +44,7 @@ class Frame private constructor(
     fun totalScoreOfFrame(nextFrame: Frame? = null, nextNextFrame: Frame? = null): Int =
         basicScore() + bonusScore(nextFrame, nextNextFrame)
 
-    fun bonusScore(nextFrame: Frame? = null, nextNextFrame: Frame? = null): Int = when {
+    private fun bonusScore(nextFrame: Frame? = null, nextNextFrame: Frame? = null): Int = when {
         hasSpare() -> nextFrame?.firstRoll ?: 0
         hasStrike() -> (nextFrame?.firstRoll ?: 0) + secondBonusRoll(nextFrame, nextNextFrame)
         else -> 0
