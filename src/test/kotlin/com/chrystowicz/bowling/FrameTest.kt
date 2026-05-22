@@ -14,7 +14,7 @@ class FrameTest {
 
         @Test
         fun `knocked down pins can't be higher than 10`() {
-            val frame = Frame(1)
+            val frame = Frame.firstFrame()
 
             assertThatThrownBy { frame.roll(11) }.isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Knocked down pins can't be higher than 10")
@@ -22,7 +22,7 @@ class FrameTest {
 
         @Test
         fun `knocked down pins can't be lower than 0`() {
-            val frame = Frame(1)
+            val frame = Frame.firstFrame()
 
             assertThatThrownBy { frame.roll(-1) }.isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Knocked down pins can't be lower than 0")
@@ -30,7 +30,7 @@ class FrameTest {
 
         @Test
         fun `sum of two rolls can't be bigger than 10`() {
-            val frame = Frame(1)
+            val frame = Frame.firstFrame()
 
             frame.roll(5)
 
@@ -42,12 +42,12 @@ class FrameTest {
 
     @Test
     fun `score is the sum of both rolls`() {
-        val frame = Frame(1)
+        val frame = Frame.firstFrame()
 
         frame.roll(5)
         frame.roll(5)
 
-        assertThat(frame.score()).isEqualTo(10)
+        assertThat(frame.basicScore()).isEqualTo(10)
     }
 
     @Nested
@@ -56,14 +56,14 @@ class FrameTest {
 
         @Test
         fun `empty frame is not finished`() {
-            val frame = Frame(1)
+            val frame = Frame.firstFrame()
 
             assertThat(frame.isFinished()).isFalse()
         }
 
         @Test
         fun `frame 1 to 9 is finished after two rolls`() {
-            val frame = Frame(1)
+            val frame = Frame.firstFrame()
 
             frame.roll(5)
             frame.roll(5)
@@ -74,7 +74,7 @@ class FrameTest {
         @Test
         fun `frame 10 can have 3 rolls if first roll has strike`() {
 
-            val frame = Frame(10)
+            val frame = createLastFrame()
 
             frame.roll(10)
             frame.roll(5)
@@ -83,10 +83,19 @@ class FrameTest {
             assertThat(frame.isFinished()).isTrue()
         }
 
+        private fun createLastFrame() : Frame {
+            var frame: Frame = Frame.firstFrame()
+            repeat(9) {
+                frame = frame.createNextFrame()
+            }
+
+            return frame
+        }
+
         @Test
         fun `frame 10 can have 3 rolls if both rolls have spare`() {
 
-            val frame = Frame(10)
+            val frame = createLastFrame()
 
             frame.roll(5)
             frame.roll(5)
@@ -99,7 +108,7 @@ class FrameTest {
 
     @Test
     fun `spare is when two rolls in a single frame sum to 10`() {
-        val frame = Frame(1)
+        val frame = Frame.firstFrame()
 
         frame.roll(5)
         frame.roll(5)
@@ -108,17 +117,8 @@ class FrameTest {
     }
 
     @Test
-    fun `frame number should be between 1 and 10`() {
-        assertThatThrownBy { Frame(-1) }.isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessage("Frame number should be between 1 and 10")
-
-        assertThatThrownBy { Frame(11) }.isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessage("Frame number should be between 1 and 10")
-    }
-
-    @Test
     fun `strike is not a spare`() {
-        val frame = Frame(1)
+        val frame = Frame.firstFrame()
 
         frame.roll(10)
 
@@ -127,7 +127,7 @@ class FrameTest {
 
     @Test
     fun `strike is when 10 pins are knocked down in first roll`() {
-        val frame = Frame(1)
+        val frame = Frame.firstFrame()
 
         frame.roll(10)
 
@@ -140,14 +140,14 @@ class FrameTest {
 
         @Test
         fun `bonus is by default zero`() {
-            val frame = Frame(1)
+            val frame = Frame.firstFrame()
 
             assertThat(frame.bonusScore(null)).isZero()
         }
 
         @Test
         fun `when current frame has a spare, bonus is next roll`() {
-            val currentFrame = Frame(1)
+            val currentFrame = Frame.firstFrame()
             currentFrame.roll(5)
             currentFrame.roll(5)
 
@@ -158,18 +158,18 @@ class FrameTest {
 
         @Test
         fun `total score includes spare bonus from next roll`() {
-            val currentFrame = Frame(1)
+            val currentFrame = Frame.firstFrame()
             currentFrame.roll(5)
             currentFrame.roll(5)
 
             val nextRoll = 5
 
-            assertThat(currentFrame.totalScore(nextRoll)).isEqualTo(15)
+            assertThat(currentFrame.totalScoreOfFrame(nextRoll)).isEqualTo(15)
         }
 
         @Test
         fun `when current frame has strike, bonus is next two rolls`() {
-            val currentFrame = Frame(1)
+            val currentFrame = Frame.firstFrame()
             currentFrame.roll(10)
 
             val nextFirstRoll = 5
