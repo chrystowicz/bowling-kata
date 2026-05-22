@@ -193,6 +193,36 @@ class GameTest {
     }
 
     @Test
+    fun `current score after a strike with incomplete next frame counts only first bonus roll`() {
+        val game = Game()
+
+        game.roll(10)
+        game.roll(5)
+
+        assertThat(game.currentScore()).isEqualTo(20)
+    }
+
+    @Test
+    fun `current score after consecutive strikes with no third frame counts only two strikes`() {
+        val game = Game()
+
+        game.roll(10)
+        game.roll(10)
+
+        assertThat(game.currentScore()).isEqualTo(30)
+    }
+
+    @Test
+    fun `current score after strike then complete frame with spare counts full bonus`() {
+        val game = Game()
+
+        repeat(9) { game.roll(10) }
+        game.roll(5)
+
+        assertThat(game.currentScore()).isEqualTo(239)
+    }
+
+    @Test
     fun `zero rolls after each frame should end up with 0 score`() {
         val game = Game()
 
