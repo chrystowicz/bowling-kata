@@ -41,6 +41,21 @@ class GameTest {
     }
 
     @Test
+    fun `10 consecutive spares and strike results in a score of exactly 150`() {
+
+        val game = Game()
+
+        repeat(10) {
+            game.roll(5)
+            game.roll(5)
+        }
+
+        game.roll(5)
+
+        assertThat(game.currentScore()).isEqualTo(150)
+    }
+
+    @Test
     fun `game starts on frame 1`() {
         val game = Game()
 
@@ -125,7 +140,6 @@ class GameTest {
         game.roll(5)
         game.roll(5)
 
-        //extra
         game.roll(5)
 
         assertThat(game.isFinished()).isTrue()

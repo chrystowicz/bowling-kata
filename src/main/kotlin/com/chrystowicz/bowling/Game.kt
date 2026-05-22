@@ -14,7 +14,7 @@ class Game {
         }
     }
 
-    fun currentScore(): Int = frames.withIndex().sumOf { (index,frame) ->
+    fun currentScore(): Int = frames.withIndex().sumOf { (index, frame) ->
         val nextFrame = getFrame(index + 1)
         when {
             nextFrame == null -> frame.totalScoreOfFrame(0, 0)
@@ -33,5 +33,5 @@ class Game {
 
     private fun currentFrame(): Frame = frames.last()
 
-    fun currentFrameNumber() = frames.size
+    fun currentFrameNumber(): Int = frames.size
 }
