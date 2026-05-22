@@ -4,9 +4,9 @@ class Frame(val frameNumber: Int) {
     init {
         require(frameNumber in 1..10) { "Frame number should be between 1 and 10" }
     }
-     var firstRoll: Int? = null
-     var secondRoll: Int? = null
-     var thirdRoll: Int? = null
+     private var firstRoll: Int? = null
+     private var secondRoll: Int? = null
+     private var thirdRoll: Int? = null
 
     fun roll(pins: Int) {
         require(pins <= 10) { "Knocked down pins can't be higher than 10" }
@@ -40,6 +40,11 @@ class Frame(val frameNumber: Int) {
         hasStrike() -> (nextFirstRoll ?: 0) + (nextSecondRoll ?: 0)
         else -> 0
     }
+
+    fun firstRollScore() : Int? = firstRoll
+    fun secondRollScore() : Int? = secondRoll
+
+    fun isLastFrame(): Boolean = frameNumber == 10
 
     fun totalScore(nextFirstRoll: Int? = null, nextSecondRoll: Int? = null): Int =
         score() + bonusScore(nextFirstRoll, nextSecondRoll)
