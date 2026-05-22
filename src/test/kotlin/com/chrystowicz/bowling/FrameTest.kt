@@ -72,32 +72,25 @@ class FrameTest {
         }
 
         @Test
-        fun `frame 10 can have 3 rolls if previous frame has strike`() {
+        fun `frame 10 can have 3 rolls if first roll has strike`() {
 
-            val previousFrame = Frame(9)
-            previousFrame.roll(10)
-
-            val frame = Frame(10, previousFrame)
+            val frame = Frame(10)
 
             frame.roll(10)
-            frame.roll(10)
-            frame.roll(10)
+            frame.roll(5)
+            frame.roll(4)
 
             assertThat(frame.isFinished()).isTrue()
         }
 
         @Test
-        fun `frame 10 can have 3 rolls if previous frame has spare`() {
+        fun `frame 10 can have 3 rolls if both rolls have spare`() {
 
-            val previousFrame = Frame(9)
-            previousFrame.roll(5)
-            previousFrame.roll(5)
+            val frame = Frame(10)
 
-            val frame = Frame(10, previousFrame)
-
-            frame.roll(10)
-            frame.roll(10)
-            frame.roll(10)
+            frame.roll(5)
+            frame.roll(5)
+            frame.roll(6)
 
             assertThat(frame.isFinished()).isTrue()
         }

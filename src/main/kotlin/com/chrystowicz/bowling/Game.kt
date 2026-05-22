@@ -10,7 +10,7 @@ class Game {
         frame.roll(pins)
 
         if (frame.isFinished() && currentFrameNumber() < 10) {
-            frames.add(Frame(currentFrameNumber() + 1, frame))
+            frames.add(Frame(currentFrameNumber() + 1))
         }
     }
 

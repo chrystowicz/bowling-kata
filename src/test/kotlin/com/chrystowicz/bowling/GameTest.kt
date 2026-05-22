@@ -100,19 +100,51 @@ class GameTest {
     }
 
     @Test
-    fun `last frame allows three rolls after a strike`() {
+    fun `last frame allows two extra rolls after a strike`() {
+        val game = Game()
+
+        repeat(10) {
+            game.roll(10)
+        }
+
+        game.roll(10)
+        game.roll(10)
+
+
+        assertThat(game.isFinished()).isTrue()
+    }
+
+    @Test
+    fun `last frame allows two extra rolls after a spare`() {
         val game = Game()
 
         repeat(9) {
             game.roll(10)
         }
 
-        game.roll(10)
-        game.roll(10)
-        game.roll(10)
+        game.roll(5)
+        game.roll(5)
 
+        //extra
+        game.roll(5)
 
         assertThat(game.isFinished()).isTrue()
+    }
+
+    @Test
+    fun `zero rolls after each frame should end up with 0 score`() {
+        val game = Game()
+
+        repeat(9) {
+            game.roll(0)
+            game.roll(0)
+        }
+
+        game.roll(0)
+        game.roll(0)
+
+        assertThat(game.isFinished()).isTrue()
+        assertThat(game.currentScore()).isEqualTo(0)
     }
 
 

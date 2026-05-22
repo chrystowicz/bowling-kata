@@ -1,7 +1,6 @@
 package com.chrystowicz.bowling
 
-class Frame(val frameNumber: Int,
-            val previousFrame: Frame? = null) {
+class Frame(val frameNumber: Int) {
     init {
         require(frameNumber in 1..10) { "Frame number should be between 1 and 10" }
     }
@@ -45,6 +44,5 @@ class Frame(val frameNumber: Int,
     fun totalScore(nextFirstRoll: Int? = null, nextSecondRoll: Int? = null): Int =
         score() + bonusScore(nextFirstRoll, nextSecondRoll)
 
-    private fun bonusRollAllowed(): Boolean =
-        previousFrame?.hasStrike() == true || previousFrame?.hasSpare() == true
+    private fun bonusRollAllowed(): Boolean = hasStrike() || hasSpare()
 }
